@@ -4,30 +4,38 @@ var io = require('socket.io')(server);
 var PORT = 3000;
 
 var clientCount = 0;
-var socketMap = {};
-
-function bindEvent(event, socket) {
-  socket.on(event, function(data) {
-    if (socket.clientNum % 2 === 0) {
-      if (socketMap[socket.clientNum - 1])
-        socketMap[socket.clientNum - 1].emit(event, data);
-    } else {
-      if (socketMap[socket.clientNum + 1])
-        socketMap[socket.clientNum + 1].emit(event, data);
-    }
-  });
-}
+var socketMap = [];
 
 io.on('connection', function(socket) {
-  clientCount += 1;
-  socket.clientNum = clientCount;
-  socketMap[clientCount] = socket;
-  if (clientCount % 2 !== 0) {
+  var id = socket.id;
+  var index = findWaiting();
+
+  var pair = null;
+  if (typeof index === 'number') {
+    pair = socketMap[index];
+  } else {
+    socketMap.push({});
+    pair = socketMap[socketMap.length - 1];
+  }
+  pair[id] = socket;
+
+  var _socket = null; // 当前配对的socket
+  var num = 0;
+  for (var key in pair) {
+    num++;
+    if (id !== key) {
+      _socket = pair[key];
+    }
+  }
+  if (num < 2) {
     socket.emit('waiting', 'waiting for another person');
   } else {
-    socket.emit('start');
-    socketMap[socket.clientNum - 1].emit('start');
+    if (socket && _socket) {
+      socket.emit('start');
+      _socket.emit('start');
+    }
   }
+
   bindEvent('init', socket);
   bindEvent('next', socket);
   bindEvent('rotate', socket);
@@ -43,16 +51,59 @@ io.on('connection', function(socket) {
   bindEvent('addTailLines', socket);
 
   socket.on('disconnect', function() {
-    if (socket.clientNum % 2 === 0) {
-      if (socketMap[socket.clientNum - 1])
-        socketMap[socket.clientNum - 1].emit('leave');
-    } else {
-      if (socketMap[socket.clientNum + 1])
-        socketMap[socket.clientNum + 1].emit('leave');
+    var index = findIndexId(id);
+
+    for (var key in socketMap[index]) {
+      if (key !== id) {
+        socketMap[index][key].emit('leave');
+      }
     }
-    delete socketMap[socket.clientNum];
+    socketMap.slice(index, 1);
   });
 });
 
 server.listen(PORT);
 console.log('websocket listening on port ' + PORT);
+
+/**
+ * 封装绑定socket事件函数
+ * @param {Stiring} event
+ * @param {Object} socket
+ */
+function bindEvent(event, socket) {
+  socket.on(event, function(data) {
+    var index = findIndexId(socket.id);
+
+    for (var key in socketMap[index]) {
+      if (key !== socket.id) {
+        socketMap[index][key].emit(event, data);
+      }
+    }
+  });
+}
+/**
+ * 查询socketMap 中的等待配对的链接
+ */
+function findWaiting() {
+  for (var i = 0; i < socketMap.length; i++) {
+    var len = 0;
+    for (var key in socketMap[i]) {
+      len++;
+    }
+    if (len < 2) return i;
+  }
+  return false;
+}
+
+/**
+ * 查找socket.id 对的index
+ * @param {ID} id 
+ */
+function findIndexId(id) {
+  for (var i = 0; i < socketMap.length; i++) {
+    for (var key in socketMap[i]) {
+      if (key === id) return i;
+    }
+  }
+  return false;
+}

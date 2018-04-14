@@ -16,5 +16,5 @@ router.get('/', function(req, res, next) {
 
 app.use('/', router);
 
-app.listen(8000);
-console.log('websocket listening on port 8000');
+app.listen(8081);
+console.log('server listening on port 8081');

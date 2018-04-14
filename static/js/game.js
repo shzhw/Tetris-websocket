@@ -33,6 +33,7 @@ var Game = function() {
   ];
 
   function initDiv(container, data, divs) {
+    container.innerHTML = '';
     for (var r = 0; r < data.length; r++) {
       var arr = [];
       for (var c = 0; c < data[0].length; c++) {
@@ -40,7 +41,7 @@ var Game = function() {
         div.className = 'none';
         div.style.top = r * 20 + 'px';
         div.style.left = c * 20 + 'px';
-        container.appendChild(div);
+        container.appendChild(div); 
         arr.push(div);
       }
       divs.push(arr);

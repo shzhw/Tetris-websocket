@@ -29,6 +29,8 @@ var Local = function(socket) {
         game.fall();
         socket.emit('fall');
       }
+      e.stopPropagation();
+      e.preventDefault();
     };
   }
   function timeFunc() {
@@ -93,6 +95,14 @@ var Local = function(socket) {
       timer = null;
     }
     document.onkeydown = null;
+    var btn = document.getElementById('startgame');
+    if (btn) {
+      btn.id = 'refresh';
+      btn.innerHTML = "重新开始游戏";
+      btn.style.display = "inline-block";
+    } else { 
+      document.getElementById('refresh').style.display = 'inline-block';
+    }
   }
   var start = function() {
     var doms = {

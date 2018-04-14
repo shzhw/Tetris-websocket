@@ -20,9 +20,8 @@
   background-color: #f2faff;
   border: 1px solid blue;
   border-top: none;
-  position: absolute;
-  top: 10px;
-  left: 10px;
+  margin: 10px 0 0 10px;
+  position: relative;
 }
 .next{
   width: 80px;
@@ -51,4 +50,7 @@
 .done{
   background-color: gray;
   border: 1px solid #000;
+}
+.footer{
+  margin: 30px 0 0 50px
 }
