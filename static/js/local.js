@@ -104,7 +104,7 @@ var Local = function(socket) {
       document.getElementById('refresh').style.display = 'inline-block';
     }
   }
-  var start = function() {
+  function start() {
     var doms = {
       gameDiv: document.getElementById('local_game'),
       nextDiv: document.getElementById('local_next'),

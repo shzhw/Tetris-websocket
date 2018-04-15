@@ -28,7 +28,7 @@ io.on('connection', function(socket) {
     }
   }
   if (num < 2) {
-    socket.emit('waiting', 'waiting for another person');
+    socket.emit('waiting', '正在匹配玩家，请耐心等待...');
   } else {
     if (socket && _socket) {
       socket.emit('start');

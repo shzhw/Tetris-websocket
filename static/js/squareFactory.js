@@ -89,7 +89,7 @@ SquareFactory.prototype.make = function(index, dir) {
     var Factory = window['Square' + index];
     var s = new Factory();
     s.origin.x = 0;
-    s.origin.y = 3;
+    s.origin.y = Math.ceil((gameWidth / squareWidth - 4) / 2);
     s.rotate(dir);
     return s;
   } catch (e) {

@@ -9,28 +9,14 @@ var Game = function() {
   var next;
   var cur;
   var score = 0;
-  var gameData = [
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-  ];
+  var gameData = [];
+  // 初始化 data
+  for (var i = 0; i < gameHeight / squareWidth; i++) {
+    gameData.push([]);
+    for (var j = 0; j < gameWidth / squareWidth; j++) {
+      gameData[i].push(0);
+    }
+  }
 
   function initDiv(container, data, divs) {
     container.innerHTML = '';
@@ -39,8 +25,8 @@ var Game = function() {
       for (var c = 0; c < data[0].length; c++) {
         var div = document.createElement('div');
         div.className = 'none';
-        div.style.top = r * 20 + 'px';
-        div.style.left = c * 20 + 'px';
+        div.style.top = r * squareWidth + 'px';
+        div.style.left = c * squareWidth + 'px';
         container.appendChild(div); 
         arr.push(div);
       }
