@@ -1,3 +1,7 @@
-var gameWidth = 300;
-var gameHeight = 500;
-var squareWidth = 20;
+define(function() {
+  return {
+    gameWidth: 300,
+    gameHeight: 500,
+    squareWidth: 20
+  };
+});
