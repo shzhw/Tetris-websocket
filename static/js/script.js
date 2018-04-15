@@ -11,20 +11,23 @@ require.config({
 });
 define(['io', 'Local', 'Remote'], function(io, Local, Remote) {
   var socket;
-  document.getElementById('startgame') &&
-    document.getElementById('startgame').addEventListener('click', function() {
-      startGame();
-      this.style.display = 'none';
-    });
-  document.getElementById('refresh') &&
-    document.getElementById('refresh').addEventListener('click', function() {
-      socket.emit('disconnect');
-      startGame();
-      this.style.display = 'none';
-    });
+  var startBtn = document.getElementById('startgame');
+  var againBtn = document.getElementById('again');
+  
+  startBtn.addEventListener('click', function() {
+    startGame();
+
+    this.className = this.className.replace('show', 'hide');
+  });
+
+  againBtn.addEventListener('click', function () {
+    socket.emit('disconnect');
+    startGame();
+    this.className = this.className.replace('show', 'hide');
+  });
 
   function startGame() {
-    var socket = io('ws://localhost:3000');
+    socket = io('ws://localhost:3000');
 
     socket.on('waiting', function(str) {
       document.getElementById('waiting').innerHTML = str;
