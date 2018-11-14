@@ -1,7 +1,7 @@
 var server = require('http').createServer();
 var io = require('socket.io')(server);
 
-var PORT = 3000;
+var PORT = 8080;
 
 var clientCount = 0;
 var socketMap = [];

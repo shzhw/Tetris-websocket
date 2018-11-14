@@ -40,7 +40,7 @@ define(['Game'], function(Game) {
         timeCount = 0;
         time += 1;
         game.setTime(time);
-        socket.emit('time', time);
+        // socket.emit('time', time);
       }
     }
     function move() {
@@ -103,7 +103,8 @@ define(['Game'], function(Game) {
       var doms = {
         gameDiv: document.getElementById('local_game'),
         nextDiv: document.getElementById('local_next'),
-        timeDiv: document.getElementById('local_time'),
+        localTimeDiv: document.getElementById('local_time'),
+        remoteTimeDiv: document.getElementById('remote_time'),
         scoreDiv: document.getElementById('local_score'),
         resultDiv: document.getElementById('local_result')
       };

@@ -2,7 +2,8 @@ define(['config', 'SquareFactory'], function(config, SquareFactory) {
   return function() {
     var gameDiv;
     var nextDiv;
-    var timeDiv;
+    var localTimeDiv;
+    var remoteTimeDiv;
     var scoreDiv;
     var resultDiv;
     var gameDivs = [];
@@ -53,13 +54,15 @@ define(['config', 'SquareFactory'], function(config, SquareFactory) {
       }
     }
     function setTime(time) {
-      timeDiv.innerHTML = time;
+      localTimeDiv.innerHTML = time;
+      remoteTimeDiv.innerHTML = time;
     }
     function init(doms, type, dir) {
       next = SquareFactory.prototype.make(type, dir);
       gameDiv = doms.gameDiv;
       nextDiv = doms.nextDiv;
-      timeDiv = doms.timeDiv;
+      localTimeDiv = doms.localTimeDiv;
+      remoteTimeDiv = doms.remoteTimeDiv;
       scoreDiv = doms.scoreDiv;
       resultDiv = doms.resultDiv;
       initDiv(gameDiv, gameData, gameDivs);

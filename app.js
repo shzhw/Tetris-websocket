@@ -16,5 +16,5 @@ router.get('/', function(req, res, next) {
 
 app.use('/', router);
 
-app.listen(8081);
-console.log('server listening on port 8081');
+app.listen(3000);
+console.log('server listening on port 3000');

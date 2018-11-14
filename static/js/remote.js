@@ -6,7 +6,6 @@ define(['Game'], function(Game) {
       var doms = {
         gameDiv: document.getElementById('remote_game'),
         nextDiv: document.getElementById('remote_next'),
-        timeDiv: document.getElementById('remote_time'),
         scoreDiv: document.getElementById('remote_score'),
         resultDiv: document.getElementById('remote_result')
       };
