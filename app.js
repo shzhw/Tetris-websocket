@@ -1,5 +1,6 @@
 var express = require('express');
 var ejs = require('ejs');
+var config = require('./config');
 var app = express();
 var router = express.Router();
 require('./wsServer');
@@ -16,5 +17,5 @@ router.get('/', function(req, res, next) {
 
 app.use('/', router);
 
-app.listen(3000);
-console.log('server listening on port 3000');
+app.listen(config.port);
+console.log('server listening on port ' + config.port);

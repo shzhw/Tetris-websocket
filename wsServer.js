@@ -1,7 +1,7 @@
 var server = require('http').createServer();
 var io = require('socket.io')(server);
 
-var PORT = 8080;
+var config = require('./config');
 
 var clientCount = 0;
 var socketMap = [];
@@ -62,8 +62,8 @@ io.on('connection', function(socket) {
   });
 });
 
-server.listen(PORT);
-console.log('websocket listening on port ' + PORT);
+server.listen(config.wsPort);
+console.log('websocket listening on port ' + config.wsPort);
 
 /**
  * 封装绑定socket事件函数
@@ -97,7 +97,7 @@ function findWaiting() {
 
 /**
  * 查找socket.id 对的index
- * @param {ID} id 
+ * @param {ID} id
  */
 function findIndexId(id) {
   for (var i = 0; i < socketMap.length; i++) {
