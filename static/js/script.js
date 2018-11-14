@@ -4,8 +4,8 @@ require.config({
     Local: 'local',
     Remote: 'remote',
     Game: 'game',
-    SquareFactory: 'SquareFactory',
-    Square: 'Square',
+    SquareFactory: 'squareFactory',
+    Square: 'square',
     config: 'config'
   }
 });
