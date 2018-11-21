@@ -96,6 +96,9 @@ define(['Game'], function(Game) {
       document.addEventListener('mouseup', function() {
         if (loop) clearInterval(loop);
       });
+      document.addEventListener('touchend', function() {
+        if (loop) clearInterval(loop);
+      });
     }
 
     function timeFunc() {
