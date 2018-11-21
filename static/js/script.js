@@ -26,7 +26,7 @@ define(['io', 'Local', 'Remote'], function(io, Local, Remote) {
   });
 
   function startGame() {
-    socket = io('ws://hx6zzp.natappfree.cc');
+    socket = io('ws://cut7gz.natappfree.cc');
 
     socket.on('waiting', function(str) {
       document.getElementById('waiting').innerHTML = str;

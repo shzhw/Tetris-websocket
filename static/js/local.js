@@ -34,6 +34,70 @@ define(['Game'], function(Game) {
         e.preventDefault();
       };
     }
+
+    function bindCtrlEvent() {
+      var topDOM = document.getElementById('ctrlTop');
+      var leftDOM = document.getElementById('ctrlLeft');
+      var bottomDOM = document.getElementById('ctrlBottom');
+      var rightDOM = document.getElementById('ctrlRight');
+
+      topDOM && topDOM.addEventListener('click', rotate);
+
+      if (leftDOM) {
+        leftDOM.addEventListener('mousedown', function() {
+          left();
+          loopHander(left);
+        });
+        leftDOM.addEventListener('touchstart', function() {
+          left();
+          loopHander(left);
+        });
+      }
+      if (bottomDOM) {
+        bottomDOM.addEventListener('mousedown', function() {
+          down();
+          loopHander(down);
+        });
+        bottomDOM.addEventListener('touchstart', function() {
+          down();
+          loopHander(down);
+        });
+      }
+      if (rightDOM) {
+        rightDOM.addEventListener('mousedown', function() {
+          right();
+          loopHander(right);
+        });
+        rightDOM.addEventListener('touchstart', function() {
+          right();
+          loopHander(right);
+        });
+      }
+    }
+    function left() {
+      game.left();
+      socket.emit('left');
+    }
+    function right() {
+      game.right();
+      socket.emit('right');
+    }
+    function rotate() {
+      game.rotate();
+      socket.emit('rotate');
+    }
+    function down() {
+      game.down();
+      socket.emit('down');
+    }
+    function loopHander(ck) {
+      var loop = null;
+      loop = setInterval(ck, 500);
+      document.addEventListener('mouseup', function() {
+        if (loop) clearInterval(loop);
+      });
+    }
+
     function timeFunc() {
       timeCount += 1;
       if (timeCount === 1000 / INTERVAL) {
@@ -96,7 +160,7 @@ define(['Game'], function(Game) {
         timer = null;
       }
       document.onkeydown = null;
-      var btn = document.getElementById('again')
+      var btn = document.getElementById('again');
       btn.className = btn.className.replace('hide', 'show');
     }
     function start() {
@@ -118,6 +182,7 @@ define(['Game'], function(Game) {
       game.performNext(_t2, _d2);
       socket.emit('next', { type: _t2, dir: _d2 });
       bindKeyEvent();
+      bindCtrlEvent();
       timer = setInterval(move, INTERVAL);
     }
     socket.on('start', function() {
